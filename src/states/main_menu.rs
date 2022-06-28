@@ -24,8 +24,7 @@ impl SimpleState for MainMenu {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         let world = data.world;
 
-        initialise_camera(world);
-        self.initialise_buttons(world);
+        self.initialise_ui(world);
     }
 
     fn on_stop(&mut self, data: StateData<'_, GameData<'_, '_>>) {
@@ -78,24 +77,8 @@ impl SimpleState for MainMenu {
     }
 }
 
-fn initialise_camera(world: &mut World) {
-    let (height, width) = {
-        let dim = world.read_resource::<ScreenDimensions>();
-        (dim.height(), dim.width())
-    };
-
-    let mut transform = Transform::default();
-    transform.set_translation_xyz(0.0, 0.0, 1.0);
-
-    world
-        .create_entity()
-        .with(Camera::standard_2d(width, height))
-        .with(transform)
-        .build();
-}
-
 impl MainMenu {
-    pub fn initialise_buttons(&mut self, world: &mut World) {
+    pub fn initialise_ui(&mut self, world: &mut World) {
         world.exec(|mut creator: UiCreator<'_>| {
             self.ui_root = Some(creator.create("ui/mainMenu/mainMenuSplash.ron", ()));
         });
