@@ -7,3 +7,4 @@ edition = "2021"
 [dependencies]
 log = { version = "0.4.17", features = ["serde"] }
 bevy = "0.7.0"
+bevy_asset_loader = "0.11.0"
